@@ -111,11 +111,17 @@ body {
     height: 20vw;
     padding: 2px;
     background-color: #E6E6E6;
-    overflow: hidden;
+    overflow: hidden; 
 }
 
-.card img {
-    width: 100%;
+.card-content {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.card-content img {
+    height: 100%;
 }
 
 .results-wrapper {

@@ -73,3 +73,42 @@ searchBar.addEventListener('keydown', (event) => {
         searchAndAppendGifs(searchBar.value)
     }
 })
+
+// Trending
+
+function getTrends() {
+    const found = fetch(apiBaseUrl + 'trending?api_key=' + apiKey + '&limit=4') 
+        .then((response) => {
+           return response.json()
+        }).then(data => {
+            return data
+        })
+        .catch((error) => {
+            return error
+        })
+    return found
+}
+
+window.addEventListener('load', () => {
+
+    getTrends().then(results => {
+        results.data.map(result => {
+
+            const cardBox = document.createElement('div')
+            cardBox.classList.add('box')
+            cardBox.classList.add('card')
+            cardBox.innerHTML = `<div class="box-header">
+                                    <span>${result.title}</span>
+                                    <div class="flex-center-content">
+                                        <img class="close-button" src="./../../public/images/close.svg"/>
+                                    </div>
+                                </div>
+                                <div class="card-content">
+                                    <img src="${result.images.fixed_height.url}" class="card-img"/>
+                                </div>`
+
+            document.getElementsByClassName('cards-wrapper')[0].appendChild(cardBox)
+
+        })   
+    })
+})
