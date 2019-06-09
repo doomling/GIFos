@@ -3,8 +3,11 @@ const apiBaseUrl = 'http://api.giphy.com/v1/gifs/';
 
 // search functionality
 
+// suggested search
+
 const searchBar = document.getElementById('search-bar')
 const searchButton = document.getElementById('search-button')
+const suggestedTopics = ['jonathanVanness', 'sailormercury', 'vapowave', 'glitter']
 
 searchBar.addEventListener('input', event => {
     
@@ -22,6 +25,7 @@ function getSearchResults(search) {
         .then((response) => {
            return response.json()
         }).then(data => {
+            console.log(data)
             return data
         })
         .catch((error) => {
@@ -32,19 +36,17 @@ function getSearchResults(search) {
 
 function searchAndAppendGifs(value) {
 
-    const gallery = document.getElementById('gallery');
     const previousContainer = document.getElementById('results');
+    const textBox = document.getElementById('results-text')
 
     if (previousContainer) {
-        gallery.removeChild(previousContainer)
+        previousContainer.innerHTML = "";
     }
     
+    textBox.innerHTML = value
     getSearchResults(value).then(results => {
 
-      const container = document.createElement('div')
-      container.id = 'results'
-      container.classList.add('results-container')
-      gallery.appendChild(container)
+      const container = document.getElementById('results')
 
         if (results.data.length > 0) {
             results.data.map(result => {
@@ -52,7 +54,7 @@ function searchAndAppendGifs(value) {
                 img.src = result.images.fixed_height.url;
                 img.classList.add('results-thumb');
                 container.appendChild(img);
-            })
+            });
         } else {
             const error = document.createElement('span')
             error.id = 'search-error'
@@ -74,10 +76,36 @@ searchBar.addEventListener('keydown', (event) => {
     }
 })
 
+function suggestedCards (topics) {
+
+    topics.forEach(topic => {
+        getSearchResults(topic).then(result => {
+            const cardBox = document.createElement('div')
+            cardBox.classList.add('box')
+            cardBox.classList.add('card')
+            cardBox.innerHTML = `<div class="box-header">
+                                    <span>#${result.data[0].title}</span>
+                                    <div class="flex-center-content">
+                                        <img class="close-button" src="./../../public/images/close.svg"/>
+                                    </div>
+                                </div>
+                                <div class="card-content">
+                                    <img src="${result.data[0].images.fixed_height.url}" class="card-img"/>
+                                </div>`
+
+            document.getElementsByClassName('cards-wrapper')[0].appendChild(cardBox)
+        })
+    })
+}
+
+window.addEventListener('load', () => {
+    suggestedCards(suggestedTopics)
+})
+
 // Trending
 
 function getTrends() {
-    const found = fetch(apiBaseUrl + 'trending?api_key=' + apiKey + '&limit=4') 
+    const found = fetch(apiBaseUrl + 'trending?api_key=' + apiKey) 
         .then((response) => {
            return response.json()
         }).then(data => {
@@ -92,23 +120,13 @@ function getTrends() {
 window.addEventListener('load', () => {
 
     getTrends().then(results => {
-        results.data.map(result => {
-
-            const cardBox = document.createElement('div')
-            cardBox.classList.add('box')
-            cardBox.classList.add('card')
-            cardBox.innerHTML = `<div class="box-header">
-                                    <span>${result.title}</span>
-                                    <div class="flex-center-content">
-                                        <img class="close-button" src="./../../public/images/close.svg"/>
-                                    </div>
-                                </div>
-                                <div class="card-content">
-                                    <img src="${result.images.fixed_height.url}" class="card-img"/>
-                                </div>`
-
-            document.getElementsByClassName('cards-wrapper')[0].appendChild(cardBox)
-
-        })   
-    })
+        const container = document.getElementById('results')
+        
+        results.data.forEach(result => {
+            const img = document.createElement('img')
+            img.src = result.images.fixed_height.url;
+            img.classList.add('results-thumb');
+            container.appendChild(img);
+        })
+    })   
 })
