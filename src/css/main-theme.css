@@ -1,0 +1,53 @@
+.main-theme {
+    color: #110038;    
+    background-color: #FFF4FD;
+}
+
+.main-theme .nav-bar {
+    height: 25px;
+    background: linear-gradient(90deg, rgba(65,128,246,1) 0%, rgba(247,201,243,1) 100%);
+    border: 1px solid #fff;
+    border-bottom: 1px solid #110038;
+    color: #FFFFFF;
+}
+
+.main-theme .button-active {
+    background-color: #F7C9F3;
+    box-shadow: 0px 0px 0px 1px #110038;
+    border-top: 1px solid #FFFFFF;
+    border-right: 1px solid #FFFFFF;
+    border-bottom: 1px solid #997D97;
+    border-left: 1px solid #997D97;
+}
+
+.main-theme .button-disabled {
+    border: 1px solid #FFFFFF;
+    background-color: #E6E6E6;
+    border-right: 1px solid #B4B4B4;
+    border-bottom: 1px solid #B4B4B4;
+    box-shadow: 0px 0px 0px 1px #5d5d5d;
+}
+
+.main-theme .box {
+    border: 3px solid #FFFFFF;
+    background-color: #E6E6E6;
+    border-right: 3px solid #B4B4B4;
+    border-bottom: 3px solid #B4B4B4;
+}
+
+.main-theme .box-header {
+    background: linear-gradient(90deg, rgba(65,128,246,1) 0%, rgba(247,201,243,1) 100%);
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+.main-theme .text-box {
+    padding: 5px;
+    box-sizing: border-box;
+    background: #FFF;
+    border-top: 2px solid #5d5d5d;
+    border-left: 2px solid #5d5d5d;
+    border-right: 2px solid #B4B4B4;
+    border-bottom: 2px solid #B4B4B4;
+    box-shadow: 0px 0px 0px 1px #E6BBE2;
+}
