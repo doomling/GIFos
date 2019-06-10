@@ -51,3 +51,20 @@
     border-bottom: 2px solid #B4B4B4;
     box-shadow: 0px 0px 0px 1px #E6BBE2;
 }
+
+.main-theme .search-suggestion {
+    background-color: #E6E6E6;
+    border-right: 1px solid #B4B4B4;
+    border-bottom: 1px solid #B4B4B4;
+    box-shadow: 0px 0px 0px 1px #5d5d5d;
+}
+
+.main-theme .card-see-more {
+    background-color: #4180F6;
+    box-shadow: 0px 0px 0px 1px #110038;
+    border-top: 1px solid #FFFFFF;
+    border-right: 1px solid #FFFFFF;
+    border-bottom: 1px solid #4C2F99;
+    border-left: 1px solid #4C2F99;
+    color: #FFFFFF;
+}
