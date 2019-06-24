@@ -20,6 +20,16 @@
     border-left: 1px solid #997D97;
 }
 
+.main-theme .button-recording {
+    background-color: #FF6161;
+    box-shadow: 0px 0px 0px 1px #110038;
+    border-top: 1px solid #FFFFFF;
+    border-right: 1px solid #FFFFFF;
+    border-bottom: 1px solid #993A3A;
+    border-left: 1px solid #993A3A;
+    color: #FFF;
+}
+
 .main-theme .button-disabled {
     border: 1px solid #FFFFFF;
     background-color: #E6E6E6;
