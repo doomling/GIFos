@@ -158,9 +158,40 @@ function uploadGif(gif) {
   }).then(res => {
     return res.json();
   }).then(data => {
-    console.log(data)
-    const id = localStorage.length
-    localStorage.setItem('gif' + id, JSON.stringify(data));
+
+    // generamos un id único para nuestro gif
+    const id = localStorage.length + 1
+    
+    // TODO traerlos con un get para que sea más consistente y sobreviva cambios a la arq de giphy
+    const gifUrl = 'https://media3.giphy.com/media/' + data.data.id + '/200.gif'
+
+    // lo agregamos al local storage
+    localStorage.setItem('gif' + id, gifUrl);
   })
   .catch(error => console.error('Error:', error));
 }
+
+function getMyGifs () {
+  let items = [];
+  for (var i = 0; i < localStorage.length; i++){
+    let item = localStorage.getItem(localStorage.key(i))
+    if (item.includes('giphy')) {
+      items.push(item)
+    }
+  }
+  return items
+}
+
+window.addEventListener('load', () => {
+  const localGifs = getMyGifs()
+  
+  localGifs.forEach(item => {
+    const img = document.createElement('img')
+    img.src = item;
+    img.classList.add('results-thumb');
+    document.getElementById('results').appendChild(img);
+  })
+})
+
+
+getMyGifs()
