@@ -3,9 +3,9 @@
 const apiKey = 'JQhP1sBxi7d1SKpBsMlFDJYPGUobpcpK';
 const apiBaseUrl = 'http://api.giphy.com/v1/gifs/';
 
-// search functionality
+// Búsqueda
 
-// suggested search
+// Búsquedas sugeridas
 
 const searchBar = document.getElementById('search-bar')
 const searchButton = document.getElementById('search-button')
@@ -34,7 +34,7 @@ searchBar.addEventListener('blur', () => {
     suggestionWrapper.classList.add('hidden');
 })
 
-// Search bar
+// Barra de búsqueda
 
 function getSearchResults(search) {
     const found = fetch(apiBaseUrl + 'search?q=' + search + '&api_key=' + apiKey) 
@@ -89,7 +89,7 @@ searchBar.addEventListener('keydown', (event) => {
     }
 })
 
-// Sugested cards
+// Búsquedas recomendadas (cards)
 
 const cardWrapper = document.getElementsByClassName('cards-wrapper')[0]
 
