@@ -12,7 +12,14 @@ const record = document.getElementById('record')
 const stop = document.getElementById('stop')
 const restart = document.getElementById('restart');
 const upload = document.getElementById('upload');
-const preview = document.getElementById('preview')
+const preview = document.getElementById('preview');
+const progressBar = document.getElementsByClassName('progress-bar-item');
+const uploadMessage = document.getElementById('upload-msg')
+const download = document.getElementById('download')
+const copy = document.getElementById('copy')
+const nav = document.getElementById('nav')
+const main  = document.getElementById('main')
+
 
  // definimos el objeto recorder - tiene que se global para que podamos accederlo en todos los listeners
  let recorder;
@@ -25,7 +32,8 @@ const preview = document.getElementById('preview')
 // Obtener video y grabación
 
 function getStreamAndRecord () {
-  // empieza a correr la cámara
+   
+    // empieza a correr la cámara
     navigator.mediaDevices.getUserMedia({
       audio: false,
       video: { 
@@ -82,6 +90,9 @@ function stopRecordingCallback() {
   form.append("file", recorder.getBlob(), 'test.gif');
   
   upload.addEventListener('click', () => {
+    uploadMessage.classList.remove('hidden');
+    preview.classList.add('hidden')
+    animateProgressBar(progressBar);
     uploadGif(form)
   })
 
@@ -122,7 +133,9 @@ function resetDOMtoInitialState() {
   document.getElementById('video-upload-buttons').classList.add('hidden');
   record.classList.remove('button-recording')
   stop.classList.remove('button-recording')
+  uploadMessage.classList.add('hidden')
   record.innerHTML = 'Grabar'
+  document.getElementById('timer').innerHTML=`00:00:00:00`;
 }
 
 function getDuration() {
@@ -147,6 +160,25 @@ function getDuration() {
   }, 1000);
 } 
 
+// Barra de progreso
+
+console.log(progressBar)
+console.log(progressBar.length)
+let paintedBar = document.getElementsByClassName('progress-bar-item-active')
+
+let counter = 0;
+function animateProgressBar (bar) {
+    setInterval(() => {
+      if (counter < bar.length) {
+        bar.item(counter).classList.toggle('progress-bar-item-active')
+        counter++;
+      } else {
+        counter = 0;
+      }
+    }, 200)
+} 
+
+
 
 function uploadGif(gif) {
 
@@ -156,19 +188,40 @@ function uploadGif(gif) {
     method: 'POST', // or 'PUT'
     body: gif,
   }).then(res => {
-    return res.json();
+    console.log(res.status)
+    if (res.status != 200 ) {
+      uploadMessage.innerHTML = `<h3>Hubo un error subiendo tu Guifo</h3>`
+    }
+    return res.json();  
   }).then(data => {
-
+    uploadMessage.classList.add('hidden');
+    document.getElementById('share-modal-wrapper').classList.remove('hidden')
     // generamos un id único para nuestro gif
     const id = localStorage.length + 1
     
     // TODO traerlos con un get para que sea más consistente y sobreviva cambios a la arq de giphy
     const gifUrl = 'https://media3.giphy.com/media/' + data.data.id + '/200.gif'
 
+    /* Seteamos el dom para mostrar nuestro modal de success */
+      preview.classList.remove('hidden')
+      main.classList.add('gray')
+      nav.classList.add('gray')
+    
+     document.getElementById('share-modal-preview').src = gifUrl; 
+     copy.addEventListener('click', () => {
+        document.execCommand('copy', gifUrl);
+        alert("Copiado! " + gifUrl);
+     })
+
+     //download.href = gifUrl
+     download.download = 'mygif.gif'
     // lo agregamos al local storage
     localStorage.setItem('gif' + id, gifUrl);
   })
-  .catch(error => console.error('Error:', error));
+  .catch(error => {
+    uploadMessage.innerHTML = (`<h3>Hubo un error subiendo tu Guifo</h3>`)
+    console.error('Error:', error)
+  });
 }
 
 function getMyGifs () {
