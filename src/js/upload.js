@@ -48,6 +48,8 @@ function getStreamAndRecord () {
        
       record.addEventListener('click', () => {
 
+      document.getElementById('camera-button').src = './../../public/images/Combined Shape.svg'
+
       this.disabled = true;
       recorder = RecordRTC(stream, {
         type: 'gif',
@@ -136,6 +138,9 @@ function resetDOMtoInitialState() {
   uploadMessage.classList.add('hidden')
   record.innerHTML = 'Grabar'
   document.getElementById('timer').innerHTML=`00:00:00:00`;
+  main.classList.remove('gray')
+  nav.classList.remove('gray')
+  document.getElementById('share-modal-wrapper').add('hidden')
 }
 
 function getDuration() {
@@ -144,7 +149,7 @@ function getDuration() {
   let timer = setInterval(() => {
     if (recording) {
       if (seconds < 60) {
-        if (seconds < 9) {
+        if (seconds <= 9) {
           seconds = '0' + seconds;
         }
         document.getElementById('timer').innerHTML=`00:00:0${minutes}:${seconds}`;
@@ -162,8 +167,6 @@ function getDuration() {
 
 // Barra de progreso
 
-console.log(progressBar)
-console.log(progressBar.length)
 let paintedBar = document.getElementsByClassName('progress-bar-item-active')
 
 let counter = 0;
@@ -213,6 +216,10 @@ function uploadGif(gif) {
         alert("Copiado! " + gifUrl);
      })
 
+     document.getElementById('finish').addEventListener('click', () => {
+       resetDOMtoInitialState()
+     })
+
      //download.href = gifUrl
      download.download = 'mygif.gif'
     // lo agregamos al local storage
@@ -245,6 +252,5 @@ window.addEventListener('load', () => {
     document.getElementById('results').appendChild(img);
   })
 })
-
 
 getMyGifs()
