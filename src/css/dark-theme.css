@@ -5,13 +5,13 @@
 
 .dark-theme .nav-bar {
     height: 25px;
-    background: linear-gradient(90deg, rgba(17,0,56,1) 0%, rgba(123,0,210,1) 100%);
+    background: linear-gradient(218deg, rgba(238,62,254,1) 0%, rgba(46,50,251,1) 100%);
     border: 1px solid #fff;
     border-bottom: 1px solid #110038;
 }
 
 .dark-theme .button-active {
-    background-color: #7b00d2;
+    background-color: #EE3EFE;
     box-shadow: 0px 0px 0px 1px #110038;
     border-top: 1px solid #000000;
     border-right: 1px solid #000000;
@@ -21,22 +21,25 @@
 
 .dark-theme .button-disabled {
     border: 1px solid #000000;
-    background-color: #000000;
     border-right: 1px solid #B4B4B4;
     border-bottom: 1px solid #28e3ed;
     box-shadow: 0px 0px 0px 1px #5d5d5d;
 }
 
-.dark-theme .box {
-    border: 3px solid #000000;
-    background-color: #952df7;
-    border-right: 3px solid #28e3ed;
-    border-bottom: 3px solid #28e3ed;
+.dark-theme-inactive {
+    background-color: #110038;
 }
 
 .dark-theme .box-header {
     border: 2px solid #000000;
-    background: linear-gradient(90deg, rgba(17,0,56,1) 0%, rgba(123,0,210,1) 100%);
+    background: linear-gradient(218deg, rgba(238,62,254,1) 0%, rgba(46,50,251,1) 100%);
+}
+
+.dark-theme .box {
+    border: 3px solid #FFFFFF;
+    background-color: #B4B4B4;
+    border-right: 3px solid #B4B4B4;
+    border-bottom: 3px solid #B4B4B4;
 }
 
 .dark-theme .text-box {

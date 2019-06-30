@@ -30,6 +30,7 @@ body {
 }
 
 .button-wrapper {
+    position: relative;
     display: flex;
 }
 
@@ -51,6 +52,18 @@ body {
 
 .header-dropdown img {
     transform: rotate(90deg);
+}
+
+.header-dropdown-container {
+    position: absolute;
+    top: 38px;
+    width: 185px;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    box-sizing: border-box;
 }
 
 .box-header {

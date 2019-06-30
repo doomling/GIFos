@@ -11,6 +11,9 @@ const searchBar = document.getElementById('search-bar')
 const searchButton = document.getElementById('search-button')
 const suggestedTopics = ['jonathan Van Ness', 'Sailor Mercury', 'vapowave', 'glitter']
 const suggestionWrapper = document.getElementsByClassName('search-suggestion-wrapper')[0]
+const dropdown = document.getElementById('dropdown')
+const light = document.getElementById('light')
+const dark = document.getElementById('dark')
 
 searchBar.addEventListener('input', event => {
     
@@ -32,6 +35,22 @@ suggestionWrapper.addEventListener('mousedown', e => {
 
 searchBar.addEventListener('blur', () => {
     suggestionWrapper.classList.add('hidden');
+})
+
+// dropdown de temas
+
+dropdown.addEventListener('click', () => {
+    document.getElementsByClassName('header-dropdown-container')[0].classList.toggle('hidden')
+})
+
+light.addEventListener('click', () => {
+    document.getElementsByTagName('body')[0].classList.add('main-theme')
+    document.getElementsByTagName('body')[0].classList.remove('dark-theme')
+})
+
+dark.addEventListener('click', () => {
+    document.getElementsByTagName('body')[0].classList.remove('main-theme')
+    document.getElementsByTagName('body')[0].classList.add('dark-theme')
 })
 
 // Barra de búsqueda
