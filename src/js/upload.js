@@ -1,7 +1,7 @@
 // Constantes útiles
 
 const apiKey = 'JQhP1sBxi7d1SKpBsMlFDJYPGUobpcpK';
-const apiBaseUrl = 'http://api.giphy.com/v1/gifs/';
+const apiBaseUrl = 'https://api.giphy.com/v1/gifs/';
 
 // Subir gifs
 
@@ -19,6 +19,7 @@ const download = document.getElementById('download')
 const copy = document.getElementById('copy')
 const nav = document.getElementById('nav')
 const main  = document.getElementById('main')
+const embed  = document.getElementById('embed')
 
 
  // definimos el objeto recorder - tiene que se global para que podamos accederlo en todos los listeners
@@ -86,6 +87,8 @@ function getStreamAndRecord () {
 
 function stopRecordingCallback() {
 
+  recorder.camera.stop();
+
   // le damos el formato requerido a la data que vamos a enviar como body de nuestro 
   // POST request
   let form = new FormData();
@@ -98,8 +101,6 @@ function stopRecordingCallback() {
     uploadGif(form)
   })
 
-  recorder.camera.stop();
-  
   objectURL = URL.createObjectURL(recorder.getBlob());
   preview.src = objectURL;
 
@@ -202,28 +203,35 @@ function uploadGif(gif) {
     // generamos un id único para nuestro gif
     const id = localStorage.length + 1
     
-    // TODO traerlos con un get para que sea más consistente y sobreviva cambios a la arq de giphy
-    const gifUrl = 'https://media3.giphy.com/media/' + data.data.id + '/200.gif'
+    fetch(apiBaseUrl + data.data.id + '?api_key=' + apiKey) 
+      .then((response) => {
+         return response.json()
+      }).then(data => {
+          const gifUrl = data.data.url
+          localStorage.setItem('gif' + id, JSON.stringify(data));
 
-    /* Seteamos el dom para mostrar nuestro modal de success */
-      preview.classList.remove('hidden')
-      main.classList.add('gray')
-      nav.classList.add('gray')
-    
-     document.getElementById('share-modal-preview').src = gifUrl; 
-     copy.addEventListener('click', () => {
-        document.execCommand('copy', gifUrl);
-        alert("Copiado! " + gifUrl);
-     })
+          /* Seteamos el dom para mostrar nuestro modal de success */    
+          document.getElementById('share-modal-preview').src = data.data.images.fixed_height.url;
+          preview.classList.remove('hidden')
+          main.classList.add('gray')
+          nav.classList.add('gray')
+        
+          
+          download.href = gifUrl
+          embed.href = data.data.embed_url
 
-     document.getElementById('finish').addEventListener('click', () => {
-       resetDOMtoInitialState()
-     })
+          copy.addEventListener('click', () => {
+            document.execCommand('copy', gifUrl);
+            alert("Copiado! " + gifUrl);
+          })
 
-     //download.href = gifUrl
-     download.download = 'mygif.gif'
-    // lo agregamos al local storage
-    localStorage.setItem('gif' + id, gifUrl);
+          document.getElementById('finish').addEventListener('click', () => {
+            resetDOMtoInitialState()
+          })
+      })
+      .catch((error) => {
+          return error
+      })
   })
   .catch(error => {
     uploadMessage.innerHTML = (`<h3>Hubo un error subiendo tu Guifo</h3>`)
@@ -235,8 +243,11 @@ function getMyGifs () {
   let items = [];
   for (var i = 0; i < localStorage.length; i++){
     let item = localStorage.getItem(localStorage.key(i))
-    if (item.includes('giphy')) {
-      items.push(item)
+    console.log(item)
+    if (item.includes('data')) {
+      itemJson = JSON.parse(item)
+      items.push(itemJson.data.images.fixed_height.url)
+      console.log(items)
     }
   }
   return items
