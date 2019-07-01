@@ -3,6 +3,10 @@
     background-color: #FFF4FD;
 }
 
+.main-theme .logo {
+    background-image: url("./../../public/images/guifos_logo.png");
+}
+
 .main-theme .nav-bar {
     height: 25px;
     background: linear-gradient(90deg, rgba(65,128,246,1) 0%, rgba(247,201,243,1) 100%);

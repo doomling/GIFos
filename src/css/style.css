@@ -16,6 +16,13 @@ body {
     margin: auto;
 }
 
+.logo {
+    width: 105px;
+    height: 60px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
 .section-header {
     display: flex;
     justify-content: space-between;

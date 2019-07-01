@@ -3,6 +3,10 @@
     background-color: #110038;
 }
 
+.dark-theme .logo {
+    background-image: url("./../../public/images/guifos_logo_dark_temp.png");
+}
+
 .dark-theme .nav-bar {
     height: 25px;
     background: linear-gradient(218deg, rgba(238,62,254,1) 0%, rgba(46,50,251,1) 100%);
@@ -13,16 +17,15 @@
 .dark-theme .button-active {
     background-color: #EE3EFE;
     box-shadow: 0px 0px 0px 1px #110038;
-    border-top: 1px solid #000000;
-    border-right: 1px solid #000000;
-    border-bottom: 1px solid #28e3ed;
-    border-left: 1px solid #28e3ed;
+    border-top: 1px solid #FFFFFF;
+    border-right: 1px solid #FFFFFF;
+    border-bottom: 1px solid #A72CB3;
+    border-left: 1px solid #A72CB3;
 }
 
 .dark-theme .button-disabled {
-    border: 1px solid #000000;
     border-right: 1px solid #B4B4B4;
-    border-bottom: 1px solid #28e3ed;
+    border-bottom: 1px solid #808080;
     box-shadow: 0px 0px 0px 1px #5d5d5d;
 }
 
@@ -31,7 +34,6 @@
 }
 
 .dark-theme .box-header {
-    border: 2px solid #000000;
     background: linear-gradient(218deg, rgba(238,62,254,1) 0%, rgba(46,50,251,1) 100%);
 }
 
@@ -48,7 +50,17 @@
     background: #FFF;
     border-top: 2px solid #000000;
     border-left: 2px solid #000000;
-    border-right: 2px solid #28e3ed;
-    border-bottom: 2px solid #28e3ed;
+    border-right: 2px solid #A72CB3;
+    border-bottom: 2px solid #A72CB3;
     box-shadow: 0px 0px 0px 1px #000000;
+}
+
+.dark-theme .card-see-more {
+    background-color: #2E32FB;
+    box-shadow: 0px 0px 0px 1px #4C2F99;
+    border-top: 1px solid #FFFFFF;
+    border-left: 1px solid #FFFFFF;
+    border-bottom: 1px solid #2124B3;
+    border-right: 1px solid #2124B3;
+    color: #FFFFFF;
 }
