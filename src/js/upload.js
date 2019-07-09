@@ -200,15 +200,13 @@ function uploadGif(gif) {
   }).then(data => {
     uploadMessage.classList.add('hidden');
     document.getElementById('share-modal-wrapper').classList.remove('hidden')
-    // generamos un id único para nuestro gif
-    const id = localStorage.length + 1
     
     fetch(apiBaseUrl + data.data.id + '?api_key=' + apiKey) 
       .then((response) => {
          return response.json()
       }).then(data => {
           const gifUrl = data.data.url
-          localStorage.setItem('gif' + id, JSON.stringify(data));
+          localStorage.setItem('gif' + data.data.id, JSON.stringify(data));
 
           /* Seteamos el dom para mostrar nuestro modal de success */    
           document.getElementById('share-modal-preview').src = data.data.images.fixed_height.url;
