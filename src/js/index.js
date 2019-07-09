@@ -1,7 +1,7 @@
 // Constantes útiles
 
 const apiKey = 'JQhP1sBxi7d1SKpBsMlFDJYPGUobpcpK';
-const apiBaseUrl = 'http://api.giphy.com/v1/gifs/';
+const apiBaseUrl = 'https://api.giphy.com/v1/gifs/';
 
 // Búsqueda
 

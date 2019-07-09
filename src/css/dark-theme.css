@@ -66,8 +66,19 @@
 .dark-theme .box {
     border: 3px solid #FFFFFF;
     background-color: #B4B4B4;
-    border-right: 3px solid #B4B4B4;
-    border-bottom: 3px solid #B4B4B4;
+    border-right: 3px solid #8F8F8F;
+    border-bottom: 3px solid #8F8F8F;
+}
+
+.dark-theme .search-suggestion {
+    background-color: #cccccc;
+    color: #110038;
+}
+
+.light-theme .search-suggestion:hover {
+    background-color: #DBDBDB;
+    border: 1px dotted #000000;
+    box-shadow: 0px 0px 0px 2px #5d5d5d;
 }
 
 .dark-theme .text-box {
