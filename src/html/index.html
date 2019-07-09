@@ -4,19 +4,19 @@
         <meta charset="UTF-8">
         <link href="https://fonts.googleapis.com/css?family=Chakra+Petch&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="./../css/style.css">
-        <link rel="stylesheet" type="text/css" href="./../css/main-theme.css">
+        <link rel="stylesheet" type="text/css" href="./../css/light-theme.css">
         <link rel="stylesheet" type="text/css" href="./../css/dark-theme.css">
     </head>
-    <body class="main-theme">
+    <body class="light-theme">
         <nav class="nav-bar">
-            ¡Bienvenidos/as a Guifos.com! ——————Donde los gifs están.////// Número de visitas: 12.765.803
+            ¡Bienvenidos/as a GIFos.com! ——————Donde los gifs están.////// Número de visitas: 12.765.803
         </nav>
         <section class="main-container">
             <header class="section-header">
                 <div class="logo"></div>
                 <div class="button-container">
                     <div class="header-button button button-active">
-                        <a href="./upload.html">Crear Guifos</a>
+                        <a href="./upload.html">Crear GIFos</a>
                     </div>
                     <div>
                         <div class="button-wrapper">
@@ -25,12 +25,12 @@
                                 <img src="./../../public/images/forward.svg">
                             </div>
                             <div class="header-button box header-dropdown-container hidden">
-                                <div class="header-button button button-active" id="light">Sailor day</div>
-                                <div class="header-button button button-active" id="dark">Sailor Night</div>
+                                <div class="header-button button button-inactive" id="light">Sailor day</div>
+                                <div class="header-button button button-inactive" id="dark">Sailor Night</div>
                             </div>
                         </div>
                     </div>
-                    <span>Mis Guifos</span>
+                    <a href="./upload.html" class="header-link"><span class="hover-underline">M</span>is GIFos</a>
                 </div>
             </header>
             <div class="search-container box">
@@ -38,21 +38,21 @@
                 <div class="search-wrapper flex-center-content">
                     <input class="search-bar" placeholder="Buscá gifs y más" value="" id="search-bar"/>
                     <div class="search-button button button-disabled" id="search-button">
-                        <img src="./../../public/images/search-icon.svg"/>
+                        <div class="search-icon"></div>
                         <span>Buscar</span>
                     </div>
                 </div>
                 <div class="box search-suggestion-wrapper hidden">
-                    <div class="search-suggestion">
-                        <span class="suggested-topic">Kittens</span>
+                    <div class="search-suggestion" data-search="Kittens">
+                        <span class="suggested-topic" data-search="Kittens">Kittens</span>
                         <img src="./../../public/images/arrow.svg">
                     </div>
-                    <div class="search-suggestion">
-                        <span class="suggested-topic">Puppies</span>
+                    <div class="search-suggestion" data-search="Puppies">
+                        <span class="suggested-topic" data-search="Puppies">Puppies</span>
                         <img src="./../../public/images/arrow.svg">
                     </div>
-                    <div class="search-suggestion">
-                        <span class="suggested-topic">Unicorns</span>
+                    <div class="search-suggestion" data-search="Unicorns">
+                        <span class="suggested-topic" data-search="Unicorns">Unicorns</span>
                         <img src="./../../public/images/arrow.svg">
                     </div>
                 </div>

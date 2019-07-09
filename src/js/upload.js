@@ -19,16 +19,15 @@ const download = document.getElementById('download')
 const copy = document.getElementById('copy')
 const nav = document.getElementById('nav')
 const main  = document.getElementById('main')
-const embed  = document.getElementById('embed')
-
+const dropdown = document.getElementById('dropdown')
+const light = document.getElementById('light')
+const dark = document.getElementById('dark')
 
  // definimos el objeto recorder - tiene que se global para que podamos accederlo en todos los listeners
  let recorder;
 
-
  // También una variable recording para manejar el timer
  let recording = false;
-
 
 // Obtener video y grabación
 
@@ -48,38 +47,38 @@ function getStreamAndRecord () {
       video.play()
        
       record.addEventListener('click', () => {
-
+        recording = !recording
       document.getElementById('camera-button').src = './../../public/images/Combined Shape.svg'
 
-      this.disabled = true;
-      recorder = RecordRTC(stream, {
-        type: 'gif',
-        frameRate: 1,
-        quality: 10,
-        width: 360,
-        hidden: 240,
-        onGifRecordingStarted: function() {
-          console.log('started')
-        },
-      });
+      if (recording === true) {
+        this.disabled = true;
+        recorder = RecordRTC(stream, {
+          type: 'gif',
+          frameRate: 1,
+          quality: 10,
+          width: 360,
+          hidden: 240,
+          onGifRecordingStarted: function() {
+            console.log('started')
+          },
+        });
+        
+        recorder.startRecording();
+        getDuration()
       
-      recorder.startRecording();
-      recording = true
-      getDuration()
-     
-      // modificamos el dom para que se note que estamos grabando
-      record.classList.add('button-recording')
-      record.innerHTML = 'Listo'
-      stop.classList.add('button-recording')
+        // modificamos el dom para que se note que estamos grabando
+        record.classList.add('button-recording')
+        record.innerHTML = 'Listo'
+        stop.classList.add('button-recording')
 
-      // cortamos el stream de la cámara
-      recorder.camera = stream; 
+        // cortamos el stream de la cámara
+        recorder.camera = stream; 
 
-      stop.addEventListener('click', () => {
-          this.disabled = true;
-          recorder.stopRecording(stopRecordingCallback);
-          recording = false;
-      });
+    } else {
+        this.disabled = true;
+        recorder.stopRecording(stopRecordingCallback);
+        recording = false;      
+      }
     });
   });
 }
@@ -125,24 +124,9 @@ start.addEventListener('click', () => {
 });
 
 restart.addEventListener('click', () => {
-  resetDOMtoInitialState()
+  location.reload();
   getStreamAndRecord()
 })
-
-function resetDOMtoInitialState() {
-  preview.classList.add('hidden')
-  video.classList.remove('hidden')
-  document.getElementById('video-record-buttons').classList.remove('hidden');
-  document.getElementById('video-upload-buttons').classList.add('hidden');
-  record.classList.remove('button-recording')
-  stop.classList.remove('button-recording')
-  uploadMessage.classList.add('hidden')
-  record.innerHTML = 'Grabar'
-  document.getElementById('timer').innerHTML=`00:00:00:00`;
-  main.classList.remove('gray')
-  nav.classList.remove('gray')
-  document.getElementById('share-modal-wrapper').add('hidden')
-}
 
 function getDuration() {
   let seconds = 0;
@@ -168,8 +152,6 @@ function getDuration() {
 
 // Barra de progreso
 
-let paintedBar = document.getElementsByClassName('progress-bar-item-active')
-
 let counter = 0;
 function animateProgressBar (bar) {
     setInterval(() => {
@@ -181,8 +163,6 @@ function animateProgressBar (bar) {
       }
     }, 200)
 } 
-
-
 
 function uploadGif(gif) {
 
@@ -197,11 +177,22 @@ function uploadGif(gif) {
       uploadMessage.innerHTML = `<h3>Hubo un error subiendo tu Guifo</h3>`
     }
     return res.json();  
-  }).then(data => {
+  }).then(data => {  
     uploadMessage.classList.add('hidden');
     document.getElementById('share-modal-wrapper').classList.remove('hidden')
-    
-    fetch(apiBaseUrl + data.data.id + '?api_key=' + apiKey) 
+    const gifId = data.data.id
+    getGifDetails(gifId)
+
+  })
+  .catch(error => {
+    uploadMessage.innerHTML = (`<h3>Hubo un error subiendo tu Guifo</h3>`)
+    console.error('Error:', error)
+  });
+}
+
+function getGifDetails (id) {
+
+  fetch(apiBaseUrl + id + '?api_key=' + apiKey) 
       .then((response) => {
          return response.json()
       }).then(data => {
@@ -210,31 +201,34 @@ function uploadGif(gif) {
 
           /* Seteamos el dom para mostrar nuestro modal de success */    
           document.getElementById('share-modal-preview').src = data.data.images.fixed_height.url;
+          const copyModal = document.getElementById('copy-success');
           preview.classList.remove('hidden')
           main.classList.add('gray')
           nav.classList.add('gray')
         
-          
           download.href = gifUrl
-          embed.href = data.data.embed_url
 
-          copy.addEventListener('click', () => {
-            document.execCommand('copy', gifUrl);
-            alert("Copiado! " + gifUrl);
+          copy.addEventListener('click', async () => {
+            await navigator.clipboard.writeText(gifUrl);
+            copyModal.innerHTML = 'Link copiado con éxito!'
+            copyModal.classList.remove('hidden')
+            setTimeout(() => { copyModal.classList.add('hidden') }, 1500);
+          })
+
+          document.getElementById('embed').addEventListener('click', async () => {
+            await navigator.clipboard.writeText(data.data.embed_url)
+            copyModal.innerHTML = 'Código copiado con éxito!'
+            copyModal.classList.remove('hidden')
+            setTimeout(() => { copyModal.classList.add('hidden') }, 500);
           })
 
           document.getElementById('finish').addEventListener('click', () => {
-            resetDOMtoInitialState()
+            location.reload();
           })
       })
       .catch((error) => {
           return error
       })
-  })
-  .catch(error => {
-    uploadMessage.innerHTML = (`<h3>Hubo un error subiendo tu Guifo</h3>`)
-    console.error('Error:', error)
-  });
 }
 
 function getMyGifs () {
@@ -253,7 +247,7 @@ function getMyGifs () {
 
 window.addEventListener('load', () => {
   const localGifs = getMyGifs()
-  
+  console.log(localGifs)
   localGifs.forEach(item => {
     const img = document.createElement('img')
     img.src = item;
@@ -263,3 +257,25 @@ window.addEventListener('load', () => {
 })
 
 getMyGifs()
+
+document.getElementById('share-done').addEventListener('click', () => {
+  location.reload();
+})
+
+// dropdown de temas
+
+dropdown.addEventListener('click', () => {
+  document.getElementsByClassName('header-dropdown-container')[0].classList.toggle('hidden')
+})
+
+light.addEventListener('click', () => {
+  document.getElementsByTagName('body')[0].classList.add('light-theme')
+  document.getElementsByTagName('body')[0].classList.remove('dark-theme')
+  document.getElementsByClassName('header-dropdown-container')[0].classList.toggle('hidden')
+})
+
+dark.addEventListener('click', () => {
+  document.getElementsByTagName('body')[0].classList.remove('main-theme')
+  document.getElementsByTagName('body')[0].classList.add('dark-theme')
+  document.getElementsByClassName('header-dropdown-container')[0].classList.toggle('hidden')
+})

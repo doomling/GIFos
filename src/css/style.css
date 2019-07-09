@@ -4,6 +4,14 @@ body {
     font-family: 'Chakra Petch', sans-serif;
 }
 
+a {
+    text-decoration: none;
+}
+
+.nav-bar {
+    height: 25px;
+}
+
 .flex-center-content {
     display: flex;
     align-items: center;
@@ -14,6 +22,15 @@ body {
     padding-top: 50px;
     width: 90vw;
     margin: auto;
+}
+
+.back {
+    display: flex;
+    align-items: center;
+}
+
+.back img {
+    margin-right: 15px;
 }
 
 .logo {
@@ -33,7 +50,11 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 430px;
+}
+
+.header-link {
+    margin-left: 20px;
+    padding: 8px;
 }
 
 .button-wrapper {
@@ -47,6 +68,7 @@ body {
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    margin-left: 20px;
 }
 
 .header-button {
@@ -55,22 +77,28 @@ body {
 
 .header-dropdown {
     width: 36px;
+    margin: 0;
 }
 
-.header-dropdown img {
-    transform: rotate(90deg);
+.header-dropdown-container .button {
+    margin: 0;
 }
 
 .header-dropdown-container {
     position: absolute;
     top: 38px;
+    left: 20px;
     width: 185px;
     z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 10px;
+    padding: 12px;
     box-sizing: border-box;
+}
+
+.hover-underline {
+    text-decoration: underline;
 }
 
 .box-header {
@@ -116,6 +144,13 @@ body {
     justify-content: space-around;
 }
 
+.search-icon {
+    height: 25px;
+    width: 25px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 .search-suggestion-wrapper {
     width:  90vw;
     position: absolute;
@@ -134,6 +169,7 @@ body {
 }
 
 .search-suggestion img {
+    width: 20px;
     transform: rotate(180deg);
     margin: 0 10px;
 }
@@ -142,7 +178,6 @@ body {
     margin-top: 20px;
     width: 100%;
     display: flex;
-    justify-content: space-between;
 }
 
 .card-header {
@@ -156,6 +191,11 @@ body {
     padding: 2px;
     background-color: #E6E6E6;
     overflow: hidden; 
+    margin-right: 3vw; 
+}
+
+.card:nth-child(4) {
+    margin-right: 0,
 }
 
 .card-content {
@@ -176,6 +216,10 @@ body {
     left: 10px;
 }
 
+.card-see-more-text {
+    padding: 3px;
+}
+
 .results-wrapper {
     margin-top: 65px;
 }
@@ -183,18 +227,38 @@ body {
 .results-container {
     width: 100%;
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap; 
 }
 
 .results-thumb {
     height: 20vw;
     width: 20vw;
-    margin-top: 16px;
+    margin-top: 3vw;
+    margin-right: 3vw;
+}
+
+.results-thumb:nth-child(4n+4) {
+    margin-right: 0;
 }
 
 .gallery-container {
     margin-top: 65px;
+}
+
+.card img:hover {
+    border: 1px dotted #000000;
+}
+
+.results-thumb img:hover {
+    border: 1px dotted #000000;
+}
+
+.results-thumb:hover {
+    box-sizing: border-box;
+    border-top: 3px solid #FFFFFF;
+    border-left: 3px solid #FFFFFF;
+    border-right: 3px solid #B4B4B4;
+    border-bottom: 3px solid #B4B4B4;
 }
 
 /* Upload */
@@ -202,6 +266,10 @@ body {
 h2 {
     font-size: 16px;
     line-height: 22px;
+}
+
+.record-button {
+    margin: 0;
 }
 
 .accent {
@@ -219,6 +287,13 @@ h2 {
     flex: 1;
     margin: 20px 0 20px 70px;
     box-sizing: content-box;
+    position: relative;
+}
+
+.retro-icon {
+    position: absolute;
+    top: 15px;
+    left: -45px;
 }
 
 .upload-button-wrapper {
@@ -288,7 +363,6 @@ video, .video-preview {
     display: flex;
     width: 250px;
     height: 20px;
-    background-color: red;
 }
 
 .progress-bar-item {
@@ -321,6 +395,7 @@ video, .video-preview {
 .share-button {
     margin: 0 20px 20px 0;
     padding: 5px;
+    width: 150px;
 }
 
 .share-img {
@@ -334,10 +409,22 @@ video, .video-preview {
 .share-done {
     display: flex;
     justify-content: flex-end;
+    margin-right: 20px;
 }
 
 .gray {
     filter: grayscale(1)
+}
+
+.copy-success {
+    position: absolute;
+    width: 200px;
+    height: 40px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
 }
 
 .hidden {

@@ -9,7 +9,7 @@ const apiBaseUrl = 'http://api.giphy.com/v1/gifs/';
 
 const searchBar = document.getElementById('search-bar')
 const searchButton = document.getElementById('search-button')
-const suggestedTopics = ['jonathan Van Ness', 'Sailor Mercury', 'vapowave', 'glitter']
+const suggestedTopics = ['Jonathan Van Ness', 'Sailor Mercury', 'Vaporwave', 'Glitter']
 const suggestionWrapper = document.getElementsByClassName('search-suggestion-wrapper')[0]
 const dropdown = document.getElementById('dropdown')
 const light = document.getElementById('light')
@@ -29,7 +29,8 @@ searchBar.addEventListener('input', event => {
 })
 
 suggestionWrapper.addEventListener('mousedown', e => {
-    searchAndAppendGifs(e.target.innerHTML)
+    searchAndAppendGifs(e.target.dataset.search)
+    searchBar.value = e.target.dataset.search
     suggestionWrapper.classList.add('hidden');
 })
 
@@ -44,13 +45,15 @@ dropdown.addEventListener('click', () => {
 })
 
 light.addEventListener('click', () => {
-    document.getElementsByTagName('body')[0].classList.add('main-theme')
+    document.getElementsByTagName('body')[0].classList.add('light-theme')
     document.getElementsByTagName('body')[0].classList.remove('dark-theme')
+    document.getElementsByClassName('header-dropdown-container')[0].classList.toggle('hidden')
 })
 
 dark.addEventListener('click', () => {
     document.getElementsByTagName('body')[0].classList.remove('main-theme')
     document.getElementsByTagName('body')[0].classList.add('dark-theme')
+    document.getElementsByClassName('header-dropdown-container')[0].classList.toggle('hidden')
 })
 
 // Barra de búsqueda
@@ -94,6 +97,8 @@ function searchAndAppendGifs(value) {
             error.innerHTML = 'No se encontraron resultados para tu búsqueda'
             container.appendChild(error)
         }
+
+        textBox.scrollIntoView();
     })
 }
 
@@ -127,7 +132,7 @@ function suggestedCards (topics) {
                                 </div>
                                 <div class="card-content">
                                     <img src="${result.data[0].images.fixed_height.url}" class="card-img" data-search="${topic}"/>
-                                    <div class="card-see-more button" data-search="${topic}">Ver más...</div>
+                                    <div class="card-see-more button" data-search="${topic}"><div class="card-see-more-text" data-search="${topic}">Ver más...<div></div>
                                 </div>`
 
             cardWrapper.appendChild(cardBox)
@@ -143,6 +148,7 @@ window.addEventListener('load', () => {
 cardWrapper.addEventListener('click', event => {
     if (event.target !== event.currentTarget) {
         const search = event.target.dataset.search
+        searchBar.value = search
         searchAndAppendGifs(search)
     }
     event.stopPropagation();
